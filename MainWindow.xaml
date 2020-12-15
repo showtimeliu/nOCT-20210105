@@ -1,0 +1,1247 @@
+﻿<Window x:Class="nOCT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ni="http://schemas.ni.com/controls/2009/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:nOCT"
+        mc:Ignorable="d"
+        Title="nOCT acquisition" Left="5" Top="5" Height="1050" Width="1910">
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="255" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- raw/complex image -->
+        <Grid Grid.Row="0" Grid.Column="0" Background="DodgerBlue" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="450" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="685" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Row="0" Grid.Column="0" Name="cbULDisplay" SelectedIndex="{Binding nULDisplayIndex}" HorizontalAlignment="Left" Width="201">
+                    <ComboBoxItem>raw AlazarTech</ComboBoxItem>
+                    <ComboBoxItem>raw DAQ</ComboBoxItem>
+                    <ComboBoxItem>raw IMAQ</ComboBoxItem>
+                    <ComboBoxItem>intensity</ComboBoxItem>
+                </ComboBox>
+                <TabControl Grid.Row="2" Grid.Column="0" Background="Black">
+                    <!-- AlazarTech -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">AT</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Name="cbULAlazarReference" SelectedIndex="{Binding nULAlazarReferenceIndex}">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" Name="txtULAlazarTop" Text="{Binding nULAlazarTop}" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" >max</TextBlock>
+                            <TextBox Grid.Row="5" Grid.Column="2" Name="txtULAlazarMax" Text="{Binding dULAlazarMax}" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" >min</TextBlock>
+                            <TextBox Grid.Row="6" Grid.Column="2" Name="txtULAlazarMin" Text="{Binding dULAlazarMin}" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" Name="txtULAlazarLeft" Text="{Binding nULAlazarLeft}" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- DAQ -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">DAQ</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Name="cbULDAQReference" SelectedIndex="{Binding nULDAQReferenceIndex}">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" Name="txtULDAQTop" Text="{Binding nULDAQTop}" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" >max</TextBlock>
+                            <TextBox Grid.Row="5" Grid.Column="2" Name="txtULDAQMax" Text="{Binding dULDAQMax}" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" >min</TextBlock>
+                            <TextBox Grid.Row="6" Grid.Column="2" Name="txtULDAQMin" Text="{Binding dULDAQMin}" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" Name="txtULDAQLeft" Text="{Binding nULDAQLeft}" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- IMAQ -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">IMAQ</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" Name="cbULIMAQReference" SelectedIndex="{Binding nULIMAQReferenceIndex}">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" Name="txtULIMAQTop" Text="{Binding nULIMAQTop}" />
+                            <TextBlock Grid.Row="4" Grid.Column="1">camera</TextBlock>
+                            <ComboBox Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" Name="cbULIMAQCamera" SelectedIndex="{Binding nULIMAQCameraIndex}" >
+                                <ComboBoxItem>parallel</ComboBoxItem>
+                                <ComboBoxItem>perpendicular</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" >min / max</TextBlock>
+                            <TextBox Grid.Row="6" Grid.Column="4" Name="txtULIMAQMin" Text="{Binding dULIMAQMin}" />
+                            <TextBox Grid.Row="6" Grid.Column="5" Name="txtULIMAQMax" Text="{Binding dULIMAQMax}" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" Name="txtULIMAQLeft" Text="{Binding nULIMAQLeft}" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- intensity -->
+                    <TabItem HorizontalAlignment="Right">
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">intensity</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7"  Name="txtULIntensityTop" Text="{Binding nULIntensityTop}" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" >max</TextBlock>
+                            <TextBox Grid.Row="5" Grid.Column="2" Name="txtULIntensityMax" Text="{Binding dULIntensityMax}" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" >min</TextBlock>
+                            <TextBox Grid.Row="6" Grid.Column="2" Name="txtULIntensityMin" Text="{Binding dULIntensityMin}" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" Name="txtULIntensityLeft" Text="{Binding nULIntensityLeft}" />
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+            </Grid>
+            <ni:Graph Grid.Column="0" Name="graphULLeft" Grid.ColumnSpan="3" Margin="-135,110,545,160" Grid.Row="2" >
+                <ni:Graph.RenderTransform>
+                    <RotateTransform Angle="90"/>
+                </ni:Graph.RenderTransform>
+                <ni:Graph.RenderTransformOrigin>
+                    <Point X="0.5" Y="0.5" />
+                </ni:Graph.RenderTransformOrigin>
+                <ni:Graph.Axes>
+                    <ni:AxisInt32 Orientation="Horizontal" Adjuster="None" Name="axisULLeftHorizontal" />
+                    <ni:AxisDouble Orientation="Vertical" Adjuster="None" Name="axisULLeftVertical" />
+                </ni:Graph.Axes>
+            </ni:Graph>
+            <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="90" />
+                </Grid.ColumnDefinitions>
+                <ni:Graph Grid.Row="0" Grid.Column="0" Name="graphULTop" >
+                    <ni:Graph.Axes>
+                        <ni:AxisInt32 Orientation="Horizontal" Adjuster="None" Name="axisULTopHorizontal" />
+                        <ni:AxisDouble Orientation="Vertical" Adjuster="None" Name="axisULTopVertical" />
+                    </ni:Graph.Axes>
+                </ni:Graph>
+            </Grid>
+            <ni:IntensityGraph Grid.Row="2" Grid.Column="2" Name="graphULMain" RenderMode="Raster" MouseDoubleClick="graphULMain_MouseDoubleClick"  >
+                <!-- Inverts Y-axis-->
+                <ni:IntensityGraph.VerticalAxis>
+                    <ni:AxisDouble IsInverted="True" Adjuster="FitExactly"/>
+                </ni:IntensityGraph.VerticalAxis >
+                <ni:IntensityGraph.ColorScale>
+                    <ni:ColorScale Location ="Far" LowColor="White" HighColor="Black" >
+                        <ni:ColorScaleMarker Color="White" Value="0"/>
+                        <ni:ColorScaleMarker Color="Black" Value="16384"/>
+                    </ni:ColorScale>
+                </ni:IntensityGraph.ColorScale>
+            </ni:IntensityGraph>
+        </Grid>
+
+        <!-- complex/other image -->
+        <Grid Grid.Row="0" Grid.Column="1" Background="DodgerBlue" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="450" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="685" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Row="0" Grid.Column="0" Name="cbURDisplay" SelectedIndex="{Binding nURDisplayIndex}">
+                    <ComboBoxItem>none</ComboBoxItem>
+                    <ComboBoxItem>intensity</ComboBoxItem>
+                    <ComboBoxItem>attenuation</ComboBoxItem>
+                    <ComboBoxItem>phase</ComboBoxItem>
+                    <ComboBoxItem>polarization</ComboBoxItem>
+                    <ComboBoxItem>angiography</ComboBoxItem>
+                    <ComboBoxItem>elastography</ComboBoxItem>
+                    <ComboBoxItem>spectroscopy</ComboBoxItem>
+                    <ComboBoxItem>spectral binning</ComboBoxItem>
+                </ComboBox>
+                <TabControl Grid.Row="2" Grid.Column="0" Background="Black">
+                    <!-- intensity -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="14" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">int</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" Name="txtURIntensityTop" Text="{Binding nURIntensityTop}" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" Name="txtURIntensityLeft" Text="{Binding nURIntensityLeft}" HorizontalAlignment="Right" Width="43" />
+                            <TextBlock Grid.Row="9" Grid.Column="5">CUDA</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="7" Name="txtURIntensityCUDA" Text="{Binding nURIntensityCUDA}" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- attenuation -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="14" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">att</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- phase -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="14" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">ph</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- polarization -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">pol</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- angiography -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">ang</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- elastography -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">ela</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- spectroscopy -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">spt</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" />
+                        </Grid>
+                    </TabItem>
+
+                    <!-- spectral binning -->
+                    <TabItem>
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0">SB</TextBlock>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid Background="DodgerBlue">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">reference subtraction</TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+                                <ComboBoxItem>none</ComboBoxItem>
+                                <ComboBoxItem>average</ComboBoxItem>
+                                <ComboBoxItem>record</ComboBoxItem>
+                                <ComboBoxItem>use recorded</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="7">depth</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="7" Name="txtURSpectralBinningTop" Text="{Binding nURSpectralBinningTop}" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">line</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" Name="txtURSpectralBinningLeft" Text="{Binding nURSpectralBinningLeft}" />
+                        </Grid>
+                    </TabItem>
+
+                </TabControl>
+
+            </Grid>
+            <ni:Graph Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="-92,78,592,119" Name="graphURLeft">
+                <ni:Graph.RenderTransform>
+                    <RotateTransform Angle="90"/>
+                </ni:Graph.RenderTransform>
+                <ni:Graph.RenderTransformOrigin>
+                    <Point X="0.5" Y="0.5" />
+                </ni:Graph.RenderTransformOrigin>
+                <ni:Graph.Axes>
+                    <ni:AxisInt32 Orientation="Horizontal" Adjuster="None" Name="axisURLeftHorizontal" />
+                    <ni:AxisDouble Orientation="Vertical" Adjuster="None" Name="axisURLeftVertical" />
+                </ni:Graph.Axes>
+            </ni:Graph>
+            <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="90" />
+                </Grid.ColumnDefinitions>
+                <ni:Graph Grid.Row="0" Grid.Column="0" Name="graphURTop">
+                    <ni:Graph.Axes>
+                        <ni:AxisInt32 Orientation="Horizontal" Adjuster="None" Name="axisURTopHorizontal" />
+                        <ni:AxisDouble Orientation="Vertical" Adjuster="None" Name="axisURTopVertical" />
+                    </ni:Graph.Axes>
+                </ni:Graph>
+            </Grid>
+            <ni:IntensityGraph Grid.Row="2" Grid.Column="2" Name="graphURMain" RenderMode="Raster" MouseDoubleClick="graphURMain_MouseDoubleClick" >
+                <!-- Inverts Y-axis-->
+                <ni:IntensityGraph.VerticalAxis>
+                    <ni:AxisDouble IsInverted="True" Adjuster="FitExactly"/>
+                </ni:IntensityGraph.VerticalAxis >
+                <ni:IntensityGraph.ColorScale>
+                    <ni:ColorScale Location ="Far" LowColor="White" HighColor="Black">
+                        <ni:ColorScaleMarker Color="White" Value="0"/>
+                        <ni:ColorScaleMarker Color="Black" Value="16384"/>
+                    </ni:ColorScale>
+                </ni:IntensityGraph.ColorScale>
+            </ni:IntensityGraph>
+        </Grid>
+
+        <!-- control -->
+        <Grid Grid.Row="1" Grid.Column="0" Background="DodgerBlue" Margin="5">
+            <TabControl Background="Black">
+                <!-- configuration -->
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">configuration</TextBlock>
+                            <Button Grid.Row="0" Grid.Column="1" Name="btnLRConfigurationStart" Click="btnLRConfigurationStart_Click">start</Button>
+                            <Button Grid.Row="0" Grid.Column="2" Name="btnLRConfigurationStop" Click="btnLRConfigurationStop_Click">stop</Button>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid Background="DodgerBlue">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="5" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="5" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1">configuration file</TextBlock>
+                        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Name="txtLLConfigurationFilename" Text="{Binding strLLConfigurationFilename}" />
+                        <Button Grid.Column="3" Grid.Row="1" Name="btnLLConfigurationLoad" Click="btnLLConfigurationLoad_Click">load</Button>
+                        <Button Grid.Column="3" Grid.Row="2" Name="btnLLConfigurationSave" Click="btnLLConfigurationSave_Click">save</Button>
+
+                        <TextBlock Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" FontWeight="Bold" TextDecorations="Underline">Alazar</TextBlock>
+                        <TextBlock Grid.Column="2" Grid.Row="5">board ID</TextBlock>
+                        <TextBox Grid.Column="3" Grid.Row="5" Name="txtLLAlazarBoard" Text="{Binding strLLAlazarBoard}" />
+                        <TextBlock Grid.Column="2" Grid.Row="6">channel 1</TextBlock>
+                        <CheckBox Grid.Column="3" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" Name="chkLLAlazarCh1" IsChecked="{Binding bLLAlazarCh1}" />
+                        <TextBlock Grid.Column="2" Grid.Row="7">channel 2</TextBlock>
+                        <CheckBox Grid.Column="3" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right" Name="chkLLAlazarCh2" IsChecked="{Binding bLLAlazarCh2}" />
+                        <TextBlock Grid.Column="2" Grid.Row="8">line length</TextBlock>
+                        <TextBox Grid.Column="3" Grid.Row="8" Name="txtLLAlazarLineLength" Text="{Binding nLLAlazarLineLength}" />
+                        <TextBlock Grid.Column="2" Grid.Row="9">sampling rate</TextBlock>
+                        <TextBox Grid.Column="3" Grid.Row="9" Name="txtLLAlazarSamplingRate" Text="{Binding nLLAlazarSamplingRate}" />
+
+                        <TextBlock Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="1" FontWeight="Bold" TextDecorations="Underline">NI DAQ</TextBlock>
+                        <TextBlock Grid.Column="6" Grid.Row="2">device ID</TextBlock>
+                        <TextBox Grid.Column="7" Grid.Row="2" Name="txtLLDAQDevice" Text="{Binding strLLDAQDevice}" />
+
+                        <TextBlock Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="4" FontWeight="Bold" TextDecorations="Underline">NI IMAQ</TextBlock>
+                        <TextBlock Grid.Column="6" Grid.Row="5">camera (parallel)</TextBlock>
+                        <TextBox Grid.Column="7" Grid.Row="5" Name="txtLLIMAQParallel" Text="{Binding strLLIMAQParallel}" />
+                        <TextBlock Grid.Column="6" Grid.Row="6">camera (perpendicular)</TextBlock>
+                        <TextBox Grid.Column="7" Grid.Row="6" Name="txtLLIMAQPerpendicular" Text="{Binding strLLIMAQPerpendicular}" />
+                        <TextBlock Grid.Column="6" Grid.Row="7">line length</TextBlock>
+                        <TextBox Grid.Column="7" Grid.Row="7" Name="txtLLIMAQLineLength" Text="{Binding nLLIMAQLineLength}" />
+                        <TextBlock Grid.Column="6" Grid.Row="8">ring buffers</TextBlock>
+                        <TextBox Grid.Column="7" Grid.Row="8" Name="txtLLIMAQRingBuffers" Text="{Binding nLLIMAQRingBuffers}" />
+
+                        <TextBlock Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="1" FontWeight="Bold" TextDecorations="Underline">general</TextBlock>
+                        <TextBlock Grid.Column="10" Grid.Row="2">system type</TextBlock>
+                        <ComboBox Grid.Column="11" Grid.Row="2" Name="cbLLSystemType" SelectedIndex="{Binding nLLSystemType}">
+                            <ComboBoxItem>SD-OCT</ComboBoxItem>
+                            <ComboBoxItem>PS-SD-OCT</ComboBoxItem>
+                            <ComboBoxItem>line field</ComboBoxItem>
+                            <ComboBoxItem>OFDI</ComboBoxItem>
+                            <ComboBoxItem>PS OFDI</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Grid.Column="11" Grid.Row="3" Name="cbLLSystemActual" SelectedIndex="{Binding nLLSystemActual}" >
+                            <ComboBoxItem>actual</ComboBoxItem>
+                            <ComboBoxItem>data</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Grid.Column="10" Grid.Row="4">line rate (-1 external)</TextBlock>
+                        <TextBox Grid.Column="11" Grid.Row="4" Name="txtLLLineRate" Text="{Binding nLLLineRate}" />
+                        <TextBlock Grid.Column="10" Grid.Row="5">lines/chunk</TextBlock>
+                        <TextBox Grid.Column="11" Grid.Row="5" Name="txtLLLinesPerChunk" Text="{Binding nLLLinesPerChunk}" />
+                        <TextBlock Grid.Column="10" Grid.Row="6">chunks/image (-1 flip)</TextBlock>
+                        <TextBox Grid.Column="11" Grid.Row="6" Name="txtLLChunksPerImage" Text="{Binding nLLChunksPerImage}" />
+                        <TextBlock Grid.Column="10" Grid.Row="7">images/volume</TextBlock>
+                        <TextBox Grid.Column="11" Grid.Row="7" Name="txtLLImagesPerVolume" Text="{Binding nLLImagesPerVolume}" />
+                        <TextBlock Grid.Column="10" Grid.Row="8">linked list length</TextBlock>
+                        <TextBox Grid.Column="11" Grid.Row="8" Name="txtLLLinkedListLength" Text="{Binding nLLLinkedListLength}" />
+                        <TextBlock Grid.Column="10" Grid.Row="9">CUDA device</TextBlock>
+                        <ComboBox Grid.Column="11" Grid.Row="9" Name="cbLLCUDADevice" SelectedIndex="{Binding nLLCUDADevice}" />
+
+                    </Grid>
+                </TabItem>
+
+                <!-- operation -->
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">operation</TextBlock>
+                            <Button Grid.Row="0" Grid.Column="1" Name="btnLROperationStart" Click="btnLROperationStart_Click">start</Button>
+                            <Button Grid.Row="0" Grid.Column="2" Name="btnLROperationStop" Click="btnLROperationStop_Click">stop</Button>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid Background="DodgerBlue">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="5" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="18" />
+                            <ColumnDefinition Width="133"/>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="45" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="45" />
+                            <ColumnDefinition Width="5" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" FontWeight="Bold" TextDecorations="Underline" Margin="0,0,0,20" Grid.RowSpan="2">directory</TextBlock>
+                        <TextBox Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="2" Name="txtLLFileDirectory" Text="{Binding strLLFileDirectory}" Margin="0,1,0,20" Grid.RowSpan="2" />
+                        <Button Grid.Column="8" Grid.Row="2" Name="btnLLFileDirectoryBrowse" Click="btnLLFileDirectoryBrowse_Click" Margin="0,1,0,20" Grid.RowSpan="2">browse</Button>
+
+                        <TextBlock Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="4" FontWeight="Bold" TextDecorations="Underline" Margin="0,1,0,20" Grid.RowSpan="2">filename</TextBlock>
+                        <TextBox Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="5" Name="txtLLFilePrefix" Text="{Binding strLLFilePrefix}" Margin="0,1,0,20" Grid.RowSpan="2" />
+                        <TextBox Grid.Column="7" Grid.Row="5" Name="txtLLFileNumber" Text="{Binding nLLFileNumber}" Margin="0,1,0,20" Grid.RowSpan="2" />
+                        <CheckBox Grid.Column="8" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Name="chkLLFileRecord" IsChecked="{Binding bLLFileRecord}" Margin="0,4,0,2">record</CheckBox>
+
+                        <TextBlock Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="7" HorizontalAlignment="Right" Margin="0,1,0,0">frame position</TextBlock>
+                        <TextBox Grid.Column="7" Grid.Row="7" Name="txtLLFileCycle" Text="{Binding nLLFileCycle}" Margin="0,1,0,0" />
+
+                        <TextBlock Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="1" FontWeight="Bold" TextDecorations="Underline">scan control</TextBlock>
+                        <TextBlock Grid.Column="11" Grid.Row="2">center (x,y) in V</TextBlock>
+                        <TextBox Grid.Column="12" Grid.Row="2" Name="txtLLCenterX" Text="{Binding dLLCenterX}" />
+                        <TextBox Grid.Column="14" Grid.Row="2" Name="txtLLCenterY" Text="{Binding dLLCenterY}" />
+                        <TextBlock Grid.Column="11" Grid.Row="3">fast axis angle (degrees)</TextBlock>
+                        <TextBox Grid.Column="12" Grid.ColumnSpan="3" Grid.Row="3" Name="txtLLFastAngle" Text="{Binding dLLFastAngle}" />
+                        <TextBlock Grid.Column="11" Grid.Row="4">range (fast,slow) in V</TextBlock>
+                        <TextBox Grid.Column="12" Grid.Row="4" Name="txtLLRangeFast" Text="{Binding dLLRangeFast}" />
+                        <TextBox Grid.Column="14" Grid.Row="4" Name="txtLLRangeSlow" Text="{Binding dLLRangeSlow}" />
+                        <TextBlock Grid.Column="11" Grid.Row="5">dwell (fast, slow)</TextBlock>
+                        <TextBox Grid.Column="12" Grid.Row="5" Name="txtLLDwellFast" Text="{Binding nLLDwellFast}" />
+                        <TextBox Grid.Column="14" Grid.Row="5" Name="txtLLDwellSlow" Text="{Binding nLLDwellSlow}" />
+                        <TextBlock Grid.Column="11" Grid.Row="6">rounding (fast, slow)</TextBlock>
+                        <TextBox Grid.Column="12" Grid.Row="6" Name="txtLLRoundingFast" Text="{Binding nLLRoundingFast}" />
+                        <TextBox Grid.Column="14" Grid.Row="6" Name="txtLLRoundingSlow" Text="{Binding nLLRoundingSlow}" />
+                        <Button Grid.Column="11" Grid.ColumnSpan="4" Grid.Row="7" Name="btnLLGalvoUpdate" Click="btnLLGalvoUpdate_Click">update</Button>
+
+                    </Grid>
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+
+        <!-- processing parameters -->
+        <Grid Grid.Row="1" Grid.Column="1" Background="DodgerBlue" Margin="5">
+            <TabControl Background="Black">
+                <!-- diagnostics -->
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+                                diagnostics
+                            </TextBlock>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid Background="DodgerBlue">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="45" />
+                            <ColumnDefinition Width="45" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="55" />
+                            <ColumnDefinition Width="55" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="10" Grid.Column="1" Name="btnLRGCCollect" Click="btnLRGCCollect_Click">GB free</Button>
+                        <TextBox Grid.Row="10" Grid.Column="2" Name="txtLRAvailableMemory" Text="{Binding dLRAvailableMemory}" />
+                        <TextBlock Grid.Row="10" Grid.Column="4">nodes</TextBlock>
+                        <TextBox Grid.Row="10" Grid.Column="5" Name="txtLRLinkedListLength" Text="{Binding nLRLinkedListLength}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">main thread</TextBlock>
+                        <TextBox Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Name="txtLRMainThreadStatus" Text="{Binding strLRMainThreadStatus}" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">7 - output</TextBlock>
+                        <TextBox Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Name="txtLROutputThreadStatus" Text="{Binding strLROutputThreadStatus}" />
+                        <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">6 - clean up</TextBlock>
+                        <TextBox Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Name="txtLRCleanupThreadStatus" Text="{Binding strLRCleanupThreadStatus}" />
+                        <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">5 - save</TextBlock>
+                        <TextBox Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" Name="txtLRSaveThreadStatus" Text="{Binding strLRSaveThreadStatus}" />
+                        <TextBlock Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">4 - acquire</TextBlock>
+                        <TextBox Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="2" Name="txtLRAcquireThreadStatus" Text="{Binding strLRAcquireThreadStatus}" />
+                        <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">3 - process</TextBlock>
+                        <TextBox Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" Name="txtLRProcessThreadStatus" Text="{Binding strLRProcessThreadStatus}" />
+                        <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">2 - stage 1</TextBlock>
+                        <TextBox Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2" Name="txtLRProcess1ThreadStatus" Text="{Binding strLRProcess1ThreadStatus}" />
+                        <TextBlock Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2">1 - stage 2/2A</TextBlock>
+                        <TextBox Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="2" Name="txtLRProcess2ThreadStatus" Text="{Binding strLRProcess2ThreadStatus}" />
+                        <ni:IntensityGraph Grid.Row="0" Grid.RowSpan="11" Grid.Column="7" Name="graphLRDiagnostics">
+                            <ni:IntensityGraph.ColorScale>
+                                <ni:ColorScale Location="None">
+                                    <ni:ColorScaleMarker Color="Black" Value="-1" />
+                                    <ni:ColorScaleMarker Color="White" Value="0" />
+                                    <ni:ColorScaleMarker Color="Blue" Value="1" />
+                                    <ni:ColorScaleMarker Color="LightBlue" Value="2" />
+                                </ni:ColorScale>
+                            </ni:IntensityGraph.ColorScale>
+                        </ni:IntensityGraph>
+                    </Grid>
+                </TabItem>
+
+                <!-- signal output -->
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+                                signal output
+                            </TextBlock>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid Background="DodgerBlue">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0">counter</TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="0">dig 0</TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="0">dig 1</TextBlock>
+                            <TextBlock Grid.Row="3" Grid.Column="0">ana 0</TextBlock>
+                            <TextBlock Grid.Row="4" Grid.Column="0">ana 1</TextBlock>
+                        </Grid>
+                        <ni:Graph Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" />
+                    </Grid>
+                </TabItem>
+
+                <!-- calibration -->
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+                                calibration
+                            </TextBlock>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid Background="DodgerBlue">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="10" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
+                            <Button Grid.Row="2" Grid.Column="1">load</Button>
+                            <Button Grid.Row="2" Grid.Column="2">save</Button>
+
+                            <CheckBox Grid.Row="4" Grid.Column="1">line</CheckBox>
+                            <TextBox Grid.Row="4" Grid.Column="2" />
+
+                            <TextBlock Grid.Row="6" Grid.Column="1">left</TextBlock>
+                            <TextBox Grid.Row="6" Grid.Column="2" />
+                            <TextBlock Grid.Row="7" Grid.Column="1">right</TextBlock>
+                            <TextBox Grid.Row="7" Grid.Column="2" />
+                            <TextBlock Grid.Row="8" Grid.Column="1">round</TextBlock>
+                            <TextBox Grid.Row="8" Grid.Column="2" />
+                            <TextBlock Grid.Row="9" Grid.Column="1">0x factor</TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="2" />
+                        </Grid>
+                        <ni:Graph Grid.Row="0" Grid.Column="1" />
+                        <ni:Graph Grid.Row="0" Grid.Column="2" />
+                    </Grid>
+                </TabItem>
+
+                <!-- dispersion -->
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+                                dispersion
+                            </TextBlock>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid Background="DodgerBlue">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="10" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="10" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
+                            <Button Grid.Row="2" Grid.Column="1">load</Button>
+                            <Button Grid.Row="2" Grid.Column="2">save</Button>
+
+                            <CheckBox Grid.Row="4" Grid.Column="1">line</CheckBox>
+                            <TextBox Grid.Row="4" Grid.Column="2" />
+
+                            <TextBlock Grid.Row="6" Grid.Column="1">left</TextBlock>
+                            <TextBox Grid.Row="6" Grid.Column="2" />
+                            <TextBlock Grid.Row="7" Grid.Column="1">right</TextBlock>
+                            <TextBox Grid.Row="7" Grid.Column="2" />
+                            <TextBlock Grid.Row="8" Grid.Column="1">round</TextBlock>
+                            <TextBox Grid.Row="8" Grid.Column="2" />
+                        </Grid>
+                        <ni:Graph Grid.Row="0" Grid.Column="1" />
+                        <ni:Graph Grid.Row="0" Grid.Column="2" />
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+    </Grid>
+</Window>
